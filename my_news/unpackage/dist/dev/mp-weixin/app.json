@@ -1,0 +1,37 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/write/write",
+    "pages/my/my",
+    "pages/login/login",
+    "pages/cate/cate",
+    "pages/cate_edit/cate_edit",
+    "pages/article_list/article_list"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "文章阅读",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#606266",
+    "selectedColor": "#DE533A",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "文章",
+        "iconPath": "static/nav1.png",
+        "selectedIconPath": "static/nav1-a.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的",
+        "iconPath": "static/nav3.png",
+        "selectedIconPath": "static/nav3-a.png"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

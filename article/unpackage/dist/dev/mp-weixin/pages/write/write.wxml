@@ -1,0 +1,1 @@
+<view><view class="wrapper"><view class="header">Header</view><view class="main">main</view><view class="aside aside-1">aside 1</view><view class="aside aside-2">aside 2</view><view class="footer">footer</view></view></view>

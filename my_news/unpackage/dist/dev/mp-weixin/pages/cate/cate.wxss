@@ -1,0 +1,39 @@
+
+page {
+	font-size: 28rpx;
+	color: #333333;
+}
+.nav-tag {
+	height: 40rpx;
+	padding: 0 16rpx;
+	color: #fff;
+	background-color: #007aff;
+	border: 1px solid #007aff;
+}
+.cu-bar {
+	border-bottom: 1px solid #eee;
+	padding: 20rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	    -ms-flex-pack: justify;
+	        justify-content: space-between;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+}
+.cu-list {
+	background-color: #F4F5F6;
+	padding: 20rpx;
+}
+.uni-swipe-action {
+	margin-bottom: 10rpx;
+}
+.cont {
+	padding: 25rpx 20rpx;
+}
+

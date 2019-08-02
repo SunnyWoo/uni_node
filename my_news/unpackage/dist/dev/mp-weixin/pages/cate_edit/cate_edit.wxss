@@ -1,0 +1,15 @@
+
+.cu-edit {
+	background-color: #F4F5F6;
+	padding: 20px;
+}
+.cu-ipt {
+	background-color: #FFFFFF;
+	padding: 10px 25px;
+	margin-bottom: 10px;
+}
+button {
+	color: #007aff;
+	background-color: #007aff;
+}
+

@@ -1,0 +1,1 @@
+<view class="content"><view class="cu-edit"><input class="cu-ipt" type="text" placeholder="分类名称" data-event-opts="{{[['input',[['__set_model',['','newVal','$event',[]]]]]]}}" value="{{newVal}}" bindinput="__e"/><button disabled="{{oldVal==newVal||newVal==''}}" type="primary" data-event-opts="{{[['tap',[['save',['$event']]]]]}}" bindtap="__e">保存</button></view></view>
