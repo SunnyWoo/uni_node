@@ -8,7 +8,7 @@
 		 -->
 		<form @submit="formSubmit">
 			<view class="article-search">
-				<input type="text" placeholder="文章标题模糊查询" />
+				<input type="text" v-model="title" placeholder="文章标题模糊查询" />
 				<button class="art-btn" formType="submit">搜索</button>
 				<navigator url="/pages/write/write">
 					<button class="art-add">添加</button>
@@ -17,22 +17,17 @@
 		</form>
 		<!-- 文章列表 -->
 		<view class="article-list">
-			<view class="article-item">
-				<image class="art-img" src="/static/user-bg.jpg" mode=""></image>
-				<view class="art-title">
-					<text>哈哈哈哈哈</text>
+			<block v-for="(item,index) in list" v-bind:key="index">
+				<view @tap="goEdit(item._id)" class="article-item">
+					<image class="art-img" v-if="item.description.length>0" :src="item.description[0].content" mode=""></image>
+					<view class="art-title">
+						<text> {{ item.title }} </text>
+					</view>
+					<text class="art-time"> {{ item.createdAt }} </text>
 				</view>
-				<text class="art-time">2919</text>
-			</view>
+			</block>
 
-			<view class="article-item">
-				<image class="art-img" src="/static/user-bg.jpg" mode=""></image>
-				<view class="art-title">
-					<text>哈哈哈哈哈</text>
-				</view>
-				<text class="art-time">2919</text>
-			</view>
-
+			<view class="uni-loadmore" v-if="showLoadMore">{{loadMoreText}}</view>
 		</view>
 
 	</view>
@@ -42,29 +37,86 @@
 	export default {
 		data() {
 			return {
-
+				title: '',
+				loadMoreText: "加载中...",
+				showLoadMore: false,
+				list: [],
+				skip: -1,
+				max: false //是否已经达到最大值 没有更多了
 			}
 		},
 		onLoad() {
-			uni.request({
-				url: this.apiBasic + '/articles',
-				method: 'GET',
-				data: {
-					skip:0
-				},
-				header:{
-					'Authorization':'Bearer '+uni.getStorageSync("SToken")
-				},
-				success: res => {
-					console.log(res);
-				},
-				fail: () => {},
-				complete: () => {}
-			});
+			this.getArticleList()
 		},
-		methods: {
-			formSubmit() {
+		onUnload() {
+			this.max = false,
+			this.list = [],
+			this.loadMoreText = "加载更多",
+			this.showLoadMore = false;
+		},
+		onReachBottom() {
+			if (this.max) {
+				return;
+			}
 
+			this.showLoadMore = true;
+			setTimeout(() => {
+				this.getArticleList()
+			}, 300);
+		},
+
+		methods: {
+			getArticleList() {
+				this.skip++;
+
+				let params = {
+					skip: this.skip
+				}
+				if (this.title != "") {
+					params.title = this.title
+				}
+
+				uni.request({
+					url: this.apiBasic + '/articles',
+					method: 'GET',
+					data: params,
+					header: {
+						'Authorization': 'Bearer ' + uni.getStorageSync("SToken")
+					},
+					success: res => {
+
+						let data = res.data;
+						if (data.length == 0) {
+							this.showLoadMore = true;
+							this.loadMoreText = "没有更多数据了!"
+							this.max = true;
+							return;
+						}
+
+						data.createdAt = new Date(data.createdAt).toLocaleString();
+
+						for (let item of data) {
+							let content = JSON.parse(item.description)
+							content = content.filter(item => item.type == "image");
+							item.description = content;
+						}
+
+						this.list = this.list.concat(data);
+					},
+					fail: () => {},
+					complete: () => {}
+				});
+			},
+			goEdit(_id) {
+				uni.redirectTo({
+					url: '/pages/write/write?id=' + _id
+				});
+			},
+			formSubmit() {
+				this.showLoadMore = false;
+				this.list = [];
+				this.skip = -1;
+				this.getArticleList()
 			}
 		}
 	}
@@ -78,7 +130,7 @@
 	.content {
 		font-size: $font-base;
 	}
-
+	
 	.article-search {
 		background-color: #FFFFFF;
 		width: 94%;
@@ -98,27 +150,29 @@
 			margin-right: 10upx;
 		}
 
-		button{
+		button {
 			height: 70upx;
 			line-height: 70upx;
 			color: #FFFFFF;
 		}
-		.art-btn{
+
+		.art-btn {
 			background-color: #409eff;
 			margin-right: 5upx;
 		}
-		.art-add{
+
+		.art-add {
 			background-color: #f56c6c;
 		}
 	}
 
 	.article-list {
-		
+
 		.article-item {
 			background-color: #FFFFFF;
 			width: 94%;
 			padding: 10upx 3%;
-			border-bottom:1px solid $border-color-base;
+			border-bottom: 1px solid $border-color-base;
 
 			.art-img {
 				width: 100%;

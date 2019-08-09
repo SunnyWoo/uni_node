@@ -5,6 +5,8 @@ Vue.config.productionTip = false
 
 App.mpType = 'app'
 
+
+Vue.prototype.viewDomain = "http://192.168.16.31:8080";
 Vue.prototype.apiBasic = "http://192.168.16.31:3000";
 
 Vue.prototype.checkLogin = (backpage, backtype) => {

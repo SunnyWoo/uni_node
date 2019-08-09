@@ -23,7 +23,7 @@ router.post('/cate', auth, async (req, res) => {
 })
 
 //获取分类列表
-router.get('/cate', auth, async (req, res) => {
+router.get('/cate', async (req, res) => {
     try {
         const cateList = await Category.find({}).sort({createdAt:-1});
         res.send(cateList)

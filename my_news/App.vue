@@ -12,7 +12,7 @@
 	}
 </script>
 
-<style>
+<style lang="scss">
 	/*每个页面公共css */
 	*,
 	*:before,
@@ -27,6 +27,16 @@
 		font-family: "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, "Droid Sans", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", Arial, sans-serif;
 		font-size: $font-base;
 		color: $font-color-base;
+	}
+	
+	/* loadmore */
+	.uni-loadmore {
+		height: 80upx;
+		line-height: 80upx;
+		text-align: center;
+		padding-bottom: 30upx;
+		color: $font-color-light;
+		font-size: $font-base;
 	}
 
 	.cate-badge {

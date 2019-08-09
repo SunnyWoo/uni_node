@@ -41,9 +41,6 @@
 			uni.request({
 				url: this.apiBasic + '/cate',
 				method: 'GET',
-				header:{
-					'Authorization':'Bearer '+uni.getStorageSync("SToken")
-				},
 				success: res => {
 					console.log(res);
 					this.list = res.data;
